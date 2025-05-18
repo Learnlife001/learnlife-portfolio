@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          👋 Hi, I'm Learnlife
+          👋 Hi, I am Learnlife
         </motion.h1>
 
         <motion.p
@@ -30,12 +31,12 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
-          <a
+          <Link
             href="/projects"
             className="px-6 py-3 rounded bg-blue-600 hover:bg-blue-700 transition font-medium"
           >
             View Projects
-          </a>
+          </Link>
           <a
             href="/hire-me"
             className="px-6 py-3 rounded border border-white hover:bg-white hover:text-black transition font-medium"
