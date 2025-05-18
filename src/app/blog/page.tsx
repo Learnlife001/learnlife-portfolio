@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 const blogPosts = [
   {
     title: "Building a Honeypot Detection System with Cowrie & Grafana",
@@ -22,23 +26,53 @@ const blogPosts = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function BlogPage() {
   return (
     <main className="min-h-screen p-10 bg-black text-white">
-      <section className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
-        <ul className="space-y-6">
+      <motion.section
+        className="max-w-4xl mx-auto"
+        initial="hidden"
+        animate="show"
+        variants={containerVariants}
+      >
+        <motion.h1 variants={itemVariants} className="text-4xl font-bold mb-8">
+          Blog
+        </motion.h1>
+
+        <motion.ul className="space-y-6">
           {blogPosts.map((post) => (
-            <li key={post.slug} className="border-b border-gray-800 pb-4">
-              <a href={`/blog/${post.slug}`} className="block hover:text-blue-500">
+            <motion.li
+              key={post.slug}
+              variants={itemVariants}
+              className="border-b border-gray-800 pb-4"
+            >
+              <a
+                href={`/blog/${post.slug}`}
+                className="block hover:text-blue-500"
+              >
                 <h2 className="text-2xl font-semibold">{post.title}</h2>
               </a>
               <p className="text-gray-400 text-sm">{post.date}</p>
               <p className="text-gray-300 mt-2">{post.summary}</p>
-            </li>
+            </motion.li>
           ))}
-        </ul>
-      </section>
+        </motion.ul>
+      </motion.section>
     </main>
   );
 }
