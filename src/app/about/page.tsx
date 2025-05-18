@@ -31,7 +31,7 @@ export default function AboutPage() {
         </motion.h1>
 
         <motion.p variants={item} className="text-lg">
-          I'm a self-driven cybersecurity enthusiast and full-stack developer,
+          I&apos;m a self-driven cybersecurity enthusiast and full-stack developer,
           building digital defenses and modern web apps with a purpose.
         </motion.p>
 
