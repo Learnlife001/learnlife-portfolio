@@ -22,7 +22,7 @@ export default function HireMePage() {
         <div>
           <h1 className="text-4xl font-bold mb-4">Let’s Work Together</h1>
           <p className="text-gray-300">
-            I'm available for freelance and collaborative work. Let me help you strengthen your systems or build secure, modern web applications.
+            I am available for freelance and collaborative work. Let me help you strengthen your systems or build secure, modern web applications.
           </p>
         </div>
 

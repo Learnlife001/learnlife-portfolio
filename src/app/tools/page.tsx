@@ -1,3 +1,7 @@
+'use client';
+
+import Image from 'next/image';
+
 const tools = [
   {
     name: "Cowrie Honeypot Alert System",
@@ -33,7 +37,13 @@ export default function ToolsPage() {
               key={idx}
               className="bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow"
             >
-              <img src={tool.image} alt={tool.name} className="w-full h-48 object-cover" />
+              <Image
+                src={tool.image}
+                alt={tool.name}
+                width={400}
+                height={200}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-5">
                 <h2 className="text-2xl font-semibold">{tool.name}</h2>
                 <p className="text-sm text-gray-300 mt-2">{tool.description}</p>
