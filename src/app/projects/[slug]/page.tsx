@@ -15,7 +15,7 @@ type Project = {
   github: string;
 };
 
-export function generateStaticParams() {
+export function generateStaticParams(): { slug: string }[] {
   return projects.map((project) => ({
     slug: project.slug,
   }));
