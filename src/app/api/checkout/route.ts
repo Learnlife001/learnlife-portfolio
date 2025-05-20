@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ invoice_url: data.invoice_url });
-  } catch (_err) {
+  } catch  {
     return NextResponse.json({ message: 'Internal error' }, { status: 500 });
   }
 }
