@@ -45,11 +45,13 @@ export default function ProductCheckoutForm({ product, onClose }: Props) {
       if (!res.ok) throw new Error(data.message || 'Payment error');
 
       setRedirectUrl(data.invoice_url);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) {
+  if (err instanceof Error) {
+    setError(err.message || 'Something went wrong');
+  } else {
+    setError('Something went wrong');
+  }
+}
   };
 
   if (redirectUrl) {

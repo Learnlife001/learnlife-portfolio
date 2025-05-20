@@ -13,7 +13,6 @@ export async function POST(req: Request) {
   const {
     payment_status,
     order_id,
-    pay_address,
     price_amount,
     pay_amount,
     payment_id,
