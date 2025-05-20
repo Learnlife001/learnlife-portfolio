@@ -7,24 +7,25 @@ const tools = [
     name: "Cowrie Honeypot Alert System",
     description:
       "A Python-based alert system that detects SSH brute-force attempts using Cowrie and sends alerts via email and Telegram. Logs geolocation to Grafana.",
-    image: "https://via.placeholder.com/400x200?text=Cowrie+Alert+System",
+    image: "/images/cowrie-alert.png",
     link: "https://github.com/Learnlife001/cowrie-geoalert-honeypot",
   },
   {
     name: "SSH Brute Force Tracker",
     description:
       "A tool to visualize and log SSH attack attempts in real-time with enriched geo-data from IPs, powered by Folium and Loki.",
-    image: "https://via.placeholder.com/400x200?text=SSH+Tracker",
+    image: "/images/ssh-tracker.png",
     link: "https://github.com/Learnlife001",
   },
   {
     name: "Learnlife Portfolio",
     description:
       "My developer/security portfolio website built using Next.js and Tailwind. Showcases projects, tools, and hire-me page.",
-    image: "https://via.placeholder.com/400x200?text=Portfolio",
+    image: "/images/learnlife-portfolio.png",
     link: "https://learnlife-portfolio.vercel.app",
   },
 ];
+
 
 export default function ToolsPage() {
   return (
