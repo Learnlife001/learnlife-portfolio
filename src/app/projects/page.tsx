@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const allProjects = [
   {
@@ -37,10 +36,22 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen p-10 bg-black text-white">
       <section className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6">Projects</h1>
+        <motion.h1
+          className="text-4xl font-bold mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Projects
+        </motion.h1>
 
         {/* Filter bar */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <motion.div
+          className="flex flex-wrap gap-2 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <button
             onClick={() => setSelectedTech(null)}
             className={`px-3 py-1 rounded border ${
@@ -64,56 +75,60 @@ export default function ProjectsPage() {
               {tech}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Project cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.slug}
-              whileHover={{ scale: 1.03 }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="bg-gray-900 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow"
-            >
-              <Link href={`/projects/${project.slug}`}>
-                <h2 className="text-2xl font-semibold hover:underline cursor-pointer">
+        {/* Project cards with entrance animation */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence>
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="bg-gray-900 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow"
+              >
+                <h2 className="text-2xl font-semibold mb-2">
                   {project.title}
                 </h2>
-              </Link>
-              <p className="text-gray-300 mt-2">{project.description}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {project.stack.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-2 py-1 text-sm bg-gray-700 text-white rounded"
+                <p className="text-gray-300">{project.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {project.stack.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-1 text-sm bg-gray-700 text-white rounded"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 flex gap-4">
+                  <a
+                    href={project.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 flex gap-4">
-                <a
-                  href={project.liveDemo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-                >
-                  Live Demo
-                </a>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded"
-                >
-                  GitHub
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                    Live Demo
+                  </a>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </section>
     </main>
   );
