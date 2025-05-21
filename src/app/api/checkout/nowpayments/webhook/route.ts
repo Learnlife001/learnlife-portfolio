@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_ANON_KEY!
-);
-
 export async function POST(req: Request) {
+  // ✅ Moved inside POST handler
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
   const body = await req.json();
 
   const {
@@ -19,7 +19,6 @@ export async function POST(req: Request) {
     payment_created_at,
   } = body;
 
-  // Only handle successful payments
   if (payment_status === 'confirmed') {
     const message = `✅ New Payment Received:
 🛒 Product ID: ${order_id}
@@ -28,7 +27,6 @@ export async function POST(req: Request) {
 🕒 Time: ${payment_created_at}
 🔗 TX ID: ${payment_id}`;
 
-    // Store order in Supabase
     await supabase.from('orders').insert([
       {
         product_id: order_id,
@@ -39,7 +37,6 @@ export async function POST(req: Request) {
       },
     ]);
 
-    // Send Telegram alert
     await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
