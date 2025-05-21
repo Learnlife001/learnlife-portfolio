@@ -16,11 +16,6 @@ type Order = {
   created_at: string;
 };
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 export default function AdminOrdersPage() {
   const [authorized, setAuthorized] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -36,6 +31,12 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     if (!authorized) return;
+
+    // ✅ Move Supabase client here
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
 
     const fetchOrders = async () => {
       const { data, error } = await supabase
