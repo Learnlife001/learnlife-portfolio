@@ -33,7 +33,7 @@ export const projects: Project[] = [
   description: "CyberRecon is a web reconnaissance & vulnerability scanner. It performs DNS lookups, IP geolocation, port scanning, WHOIS queries, and detects tech stacks, built with Python and modular design.",
   longDescription: "CyberRecon is a Python-based reconnaissance tool for ethical hackers and system admins. It automates domain fingerprinting using modules for DNS records, subdomain enumeration, IP geolocation, open port scanning, WHOIS, and technology stack detection.",
   stack: ["Python", "Security", "Recon", "CLI"],
-  liveDemo: "", // optional: link to demo or CLI recording
+  liveDemo: "https://youtu.be/vRgAnWFaAzY",
   github: "https://github.com/Learnlife001/cyberrecon"
 }
 
