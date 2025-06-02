@@ -46,7 +46,7 @@ export default function AboutPage() {
               'React / Next.js',
               'Node.js / Express',
               'Python / Flask',
-              'MongoDB / PostgreSQL',
+              'MongoDB / PostgreSQL / MySQL',
               'Tailwind CSS',
               'Linux / Git / Nginx',
             ].map((tech, i) => (

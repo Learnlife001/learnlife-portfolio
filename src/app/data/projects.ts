@@ -26,5 +26,15 @@ export const projects: Project[] = [
     stack: ["Next.js", "Tailwind CSS", "React"],
     liveDemo: "https://learnlife-portfolio.vercel.app",
     github: "https://github.com/Learnlife001/learnlife-portfolio"
-  }
+  },
+  {
+  title: "CyberRecon",
+  slug: "cyberrecon",
+  description: "CyberRecon is a web reconnaissance & vulnerability scanner. It performs DNS lookups, IP geolocation, port scanning, WHOIS queries, and detects tech stacks, built with Python and modular design.",
+  longDescription: "CyberRecon is a Python-based reconnaissance tool for ethical hackers and system admins. It automates domain fingerprinting using modules for DNS records, subdomain enumeration, IP geolocation, open port scanning, WHOIS, and technology stack detection.",
+  stack: ["Python", "Security", "Recon", "CLI"],
+  liveDemo: "", // optional: link to demo or CLI recording
+  github: "https://github.com/Learnlife001/cyberrecon"
+}
+
 ];

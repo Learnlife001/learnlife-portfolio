@@ -22,6 +22,14 @@ const allProjects = [
     liveDemo: "https://learnlife-portfolio.vercel.app",
     github: "https://github.com/Learnlife001/learnlife-portfolio",
   },
+  {
+  slug: "cyberrecon",
+  title: "CyberRecon",
+  description: "CyberRecon is a web reconnaissance & vulnerability scanner. It performs DNS lookups, IP geolocation, port scanning, WHOIS queries, and detects tech stacks, built with Python and modular design.",
+  stack: ["Python", "Security", "Recon", "CLI"],
+  liveDemo: "", // optional: link to demo or CLI recording
+  github: "https://github.com/Learnlife001/cyberrecon"
+},
 ];
 
 const allTech = Array.from(new Set(allProjects.flatMap(p => p.stack))).sort();
