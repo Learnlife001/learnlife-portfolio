@@ -2,8 +2,8 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata = {
-  title: "Learnlife Portfolio",
-  description: "Built by CJ — Developer & Cybersecurity Enthusiast",
+  title: "Okuma Portfolio",
+  description: "Built by Okuma Chigozie G. A Developer and security Enthusiast",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -13,13 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Navigation */}
         <nav className="p-4 flex gap-6 border-b border-gray-700">
           <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
           <Link href="/projects">Projects</Link>
-          <Link href="/tools">Tools</Link>
-          <Link href="/blog">Blog</Link>
-          <Link href="/hire-me">Hire Me</Link>
-          <Link href="/contact">Contact</Link>
           <Link href="/products">Products</Link>
+          <Link href="/profile">Profile</Link>
         </nav>
 
         {/* Main content */}

@@ -3,7 +3,7 @@ export default function SuccessPage() {
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-10">
       <h1 className="text-4xl font-bold mb-4">✅ Payment Successful!</h1>
       <p className="text-lg text-gray-300 mb-6">
-        Thank you for your purchase. We’ll process your order shortly.
+        Thank you for your purchase. We will process your order shortly.
       </p>
       <a
         href="/products"

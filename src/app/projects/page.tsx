@@ -1,142 +1,102 @@
+// app/projects/page.tsx
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { projects } from "./data";
 
-const allProjects = [
-  {
-    slug: "cowrie-honeypot-alert-system",
-    title: "Cowrie Honeypot Alert System",
-    description:
-      "Python-based alert system for SSH attacks using Cowrie, GeoIP, and Loki.",
-    stack: ["Python", "Cowrie", "GeoIP", "Grafana"],
-    liveDemo: "https://cowrie-learnlife.vercel.app",
-    github: "https://github.com/Learnlife001/cowrie-geoalert-honeypot",
-  },
-  {
-    slug: "learnlife-portfolio",
-    title: "Learnlife Portfolio",
-    description:
-      "My portfolio site built using Next.js, Tailwind, and Vercel.",
-    stack: ["Next.js", "Tailwind CSS", "React"],
-    liveDemo: "https://learnlife-portfolio.vercel.app",
-    github: "https://github.com/Learnlife001/learnlife-portfolio",
-  },
-  {
-  slug: "cyberrecon",
-  title: "CyberRecon",
-  description: "CyberRecon is a web reconnaissance & vulnerability scanner. It performs DNS lookups, IP geolocation, port scanning, WHOIS queries, and detects tech stacks, built with Python and modular design.",
-  stack: ["Python", "Security", "Recon", "CLI"],
-  liveDemo: "https://youtu.be/vRgAnWFaAzY",
-  github: "https://github.com/Learnlife001/cyberrecon"
-  },
-];
-
-const allTech = Array.from(new Set(allProjects.flatMap(p => p.stack))).sort();
-
-export default function ProjectsPage() {
-  const [selectedTech, setSelectedTech] = useState<string | null>(null);
-
-  const filteredProjects = selectedTech
-    ? allProjects.filter((project) => project.stack.includes(selectedTech))
-    : allProjects;
-
+export default function ProjectsIndex() {
   return (
-    <main className="min-h-screen p-10 bg-black text-white">
+    <main className="min-h-screen p-8 bg-black text-white">
       <section className="max-w-6xl mx-auto">
-        <motion.h1
-          className="text-4xl font-bold mb-6"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-blue-400">
           Projects
-        </motion.h1>
+        </h1>
 
-        {/* Filter bar */}
-        <motion.div
-          className="flex flex-wrap gap-2 mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <button
-            onClick={() => setSelectedTech(null)}
-            className={`px-3 py-1 rounded border ${
-              selectedTech === null
-                ? "bg-blue-600 text-white"
-                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-            }`}
-          >
-            All
-          </button>
-          {allTech.map((tech) => (
-            <button
-              key={tech}
-              onClick={() => setSelectedTech(tech)}
-              className={`px-3 py-1 rounded border ${
-                selectedTech === tech
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-              }`}
+        {/* Projects grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((p) => (
+            <article
+              key={p.slug}
+              className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 shadow-md hover:shadow-xl transition-all"
             >
-              {tech}
-            </button>
-          ))}
-        </motion.div>
+              {/* --- Image --- */}
+              {p.cover && (
+                <div className="relative w-full h-48 md:h-56 lg:h-60">
+                  <Image
+                    src={p.cover}
+                    alt={`${p.title} cover`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
+                            33vw"
+                    priority
+                  />
+                </div>
+              )}
 
-        {/* Project cards with entrance animation */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-gray-900 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow"
-              >
-                <h2 className="text-2xl font-semibold mb-2">
-                  {project.title}
+              {/* --- Project content --- */}
+              <div className="p-5 space-y-3">
+                <h2 className="text-xl font-semibold">
+                  <Link
+                    href={`/projects/${p.slug}`}
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    {p.title}
+                  </Link>
                 </h2>
-                <p className="text-gray-300">{project.description}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {project.stack.map((tech, i) => (
+
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {p.short}
+                </p>
+
+                {/* --- Stack tags --- */}
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {p.stack.map((tech) => (
                     <span
-                      key={i}
-                      className="px-2 py-1 text-sm bg-gray-700 text-white rounded"
+                      key={tech}
+                      className="text-xs bg-gray-800 px-2 py-1 rounded"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-                <div className="mt-4 flex gap-4">
-                  <a
-                    href={project.liveDemo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded"
-                  >
-                    GitHub
-                  </a>
+
+                {/* --- Buttons --- */}
+                <div className="flex gap-3 pt-3">
+                  {p.liveDemo ? (
+                    <a
+                      href={p.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm"
+                    >
+                      Live Demo
+                    </a>
+                  ) : (
+                    <button
+                      disabled
+                      className="px-3 py-2 bg-gray-800 rounded opacity-60 cursor-not-allowed text-sm"
+                    >
+                      No Demo
+                    </button>
+                  )}
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 bg-gray-700 hover:bg-gray-800 rounded text-sm"
+                    >
+                      GitHub
+                    </a>
+                  )}
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
