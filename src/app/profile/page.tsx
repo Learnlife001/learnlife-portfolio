@@ -169,7 +169,7 @@ export default function ContactProfilePage() {
           <h2 className="text-xl md:text-2xl font-semibold text-blue-400">
             Contact / Work Enquiries
           </h2>
-          <p className="text-gray-300 mt-2">Fill the form below — I usually reply within 12 hours.</p>
+          <p className="text-gray-300 mt-2">Fill the form below. I usually reply within 12 hours.</p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" aria-live="polite">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
