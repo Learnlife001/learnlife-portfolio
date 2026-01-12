@@ -6,7 +6,8 @@ export type Project = {
     stack: string[];
     liveDemo?: string;
     github?: string;
-    cover?: string; // path under /public
+    cover?: string;
+    documentation?: string;
 };
 
 export const projects: Project[] = [
@@ -17,9 +18,11 @@ export const projects: Project[] = [
             "Python-based alert system for SSH attacks using Cowrie, Grafana, GeoIP and Loki.",
         long: "A honeypot monitoring and alert pipeline using Cowrie for capture, GeoIP for location, Loki/Filebeat for logs, and Grafana for dashboards. Includes SMTP/Telegram bot alerts and throttling/limits.",
         stack: ["Python", "Cowrie", "GeoIP", "Grafana", "Azure"],
-        liveDemo: "https://youtu.be/vRgAnWFaAzY",
+        liveDemo: "https://youtu.be/XP2Ft1XvRCI?si=Kbr4RVzaTITkAl1l",
         github: "https://github.com/Learnlife001/cowrie-geoalert-honeypot",
-        cover: "/projects/cowrie-honeypot-alert-system/chpas.png",
+        cover: "/projects/cowrie-honeypot-alert-system/cowrie.png",
+        documentation: "/Honeypot.pdf",
+        
     },
     {
         slug: "cyberrecon",

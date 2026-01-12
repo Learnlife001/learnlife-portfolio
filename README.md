@@ -1,52 +1,17 @@
-# 💼 Learnlife Portfolio + Crypto-Powered Store
+This project documents the design, deployment, and operation of a real world SSH honeypot system built to observe, collect, enrich, and visualize live attack activity on the internet. The goal of the project is to move beyond simple log collection and build a complete attack intelligence pipeline that captures raw adversary behavior and turns it into meaningful, visual insight.
 
-A full-stack developer portfolio and crypto-powered product store built with **Next.js**, **Tailwind CSS**, **Supabase**, and **NowPayments**. This project showcases my work, tools, and allows users to securely purchase products like laptops and appliances using **USDT or other crypto** options — with real-time **Telegram alerts** and order tracking.
+The core of the system is Cowrie, an SSH honeypot configured to listen on a nonstandard port and intentionally expose weak authentication surfaces. The honeypot runs on a public cloud virtual machine, allowing it to receive unsolicited connection attempts from real attackers across the globe. Every interaction is recorded in detail, including connection metadata, authentication attempts, usernames, passwords, commands, and session behavior. These events are written continuously to structured and unstructured log files on disk.
 
-Hosted on **Vercel** · Built by **Learnlife (CJ)**
+Because raw logs alone are not enough for analysis at scale, the project integrates Promtail and Loki to build a centralized log ingestion and query layer. Promtail is configured to tail Cowrie log files in real time and attach consistent labels such as job name, service name, and file source. These logs are pushed into Loki, which acts as a highly efficient time series log database. Loki allows fast querying of both recent and historical attack activity without the overhead of full text indexing.
 
----
+To add geographic context to the attacks, the project introduces a custom enrichment stage. A Python enrichment script processes Cowrie JSON logs and extracts attacker IP addresses. Each IP address is resolved using GeoIP data to obtain country, city, latitude, and longitude. The enriched events are written back as structured JSON logs under a separate job label. This separation makes it possible to analyze raw Cowrie events and enriched attack intelligence independently while still keeping them linked through shared fields.
 
-## 🛠️ Tech Stack
+Grafana is used as the visualization and analysis layer. It connects directly to Loki and queries both raw and enriched data streams. The dashboard is designed to answer practical security questions such as where attacks are coming from, how frequently authentication attempts occur, which regions are most active, and how attack volume changes over time. Logs panels provide full visibility into individual events, while aggregated queries surface high level patterns.
 
-- **Frontend**: Next.js 15, React, Tailwind CSS, Framer Motion
-- **Backend**: Next.js API Routes
-- **Payments**: NowPayments API (USDT, BTC, etc.)
-- **Database**: Supabase (PostgreSQL)
-- **Auth & Admin**: URL-based admin key (no public UI)
-- **Notifications**: Telegram Bot API
-- **Hosting**: Vercel
+A key feature of the dashboard is the global attack map. Using Grafana Geomap panels, enriched logs containing latitude and longitude are transformed into geographic markers. Each marker represents an observed attacker location, allowing viewers to see live and historical attack distribution across the world. Transformations inside Grafana extract JSON fields from log lines and map them directly to coordinate fields, enabling accurate spatial visualization without external databases.
 
----
+Throughout the project, system reliability and operational safety are considered. Disk usage is actively monitored and controlled by archiving and compressing historical logs to prevent storage exhaustion. Memory pressure is mitigated through the use of swap space to keep the system stable during high ingestion periods. Network exposure is tightly scoped so that only intended services are accessible, reducing the risk of accidental compromise.
 
-## ✨ Key Features
+This repository serves as both a technical reference and a learning resource. It demonstrates how a modern honeypot pipeline can be built using open source tools, how raw security telemetry can be enriched into intelligence, and how that intelligence can be communicated visually in a way that is intuitive and impactful. The project is suitable for students, security researchers, and practitioners who want hands on experience with adversary observation, log engineering, and security visualization in a real world environment.
 
-- 🔐 Developer Portfolio with animated transitions and projects
-- 🛒 Product page with real images (washing machines, laptops, etc.)
-- 💳 Crypto checkout flow (NowPayments)
-- 🧾 Admin page to track orders (secured with a secret key)
-- 📬 Telegram alert on successful payment
-- 🌍 Fully deployed and live on Vercel
-
----
-
-## 📦 Getting Started (Dev)
-
-✅ Status
-Product checkout ✅
-
-Crypto payments with invoice redirect ✅
-
-Telegram alerts ✅
-
-Supabase order logging ✅
-
-Admin panel (hidden route) ✅
-
-Final polish for production ready ✅
-
-📬 Contact
-Chigozie Okuma (aka Learnlife)
-GitHub · Portfolio
-
-📄 License
-This project is open-source under the MIT License.
+The accompanying video walks through the full lifecycle of the system from initial access and deployment, through log ingestion and enrichment, to final visualization in Grafana. Together, the code, documentation, and dashboard illustrate how passive monitoring can provide deep insight into global attack behavior without interacting directly with attackers or exposing production systems.

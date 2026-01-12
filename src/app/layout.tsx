@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Okuma Portfolio",
-  description: "Built by Okuma Chigozie G. A Developer and security Enthusiast",
+  description: "Built by Okuma G. Chigozie, A security Enthusiast",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

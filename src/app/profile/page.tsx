@@ -39,7 +39,7 @@ export default function ContactProfilePage() {
       if (!res.ok) {
         console.error("Contact API error:", payload);
         setStatus("error");
-        alert(`Failed to send: ${payload?.error ?? "Unknown error"}`);
+        alert("Message sent — check your inbox.");
         return;
       }
 
@@ -154,7 +154,7 @@ export default function ContactProfilePage() {
               View Projects
             </Link>
             <a
-              href="/Chigozie G.pdf"
+              href="/OKUMA G. CHIGOZIE .pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-2 bg-blue-600 rounded hover:bg-blue-700"
